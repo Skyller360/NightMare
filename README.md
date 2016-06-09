@@ -1,136 +1,52 @@
-<h1> Getting Started </h1>
+### Rules
 
-<ul>
-    <li> <a href="#firstSteps">First Steps</a> </li>
-    <li> <a href="../index.html">Examples </a></li>
-</ul>
+You're lost in a forest full of monster with only your flashlight in hand ....
+Aim for the monsters to make them disappear !
 
-<br />
-<hr>
+### Installation
 
-<h1 id="firstSteps"> First Steps </h1>
-    <ol>
-        <li><a href="#createEnvironment"> Create the environment </a></li>
-        <li><a href="#loadImages">Load Images</a> </li>
-        <li><a href="#createScene"> Create a Scene </a></li>
-        <li><a href="#createGameObject"> Create a GameObject </a></li>
-    </ol>
+Nightmare requires [Node.js](https://nodejs.org/) to run.
 
-<br />
-<hr>
-<br />
+You need [Express](http://expressjs.com/) and [Socket.IO](http://socket.io/) installed.
 
-<h3 id="createEnvironment"> Create the environment </h3>
+```sh
+$ npm install express
+$ npm install socket.io
+```
 
-<h6> Create the canvas </h6>
+### Launching
 
-<p> First of all you need to create a canvas in your HTML file. </p>
-    
-    <canvas id="canvas"> </canvas>
+First of all, make an ipconfig in your console to know your own IP address
 
-<p> You can now close your HTML file. </p>
+```sh
+$ ipconfig
+```
 
-<h6> Set size of your canvas  </h6>
+Go into Assets/Scripts/Javascript/Game/Config.js and change the url variable to your own ip + the port 8000, and do the same in control.html.
 
-<p> In the file Assets/Scripts/Javascript/Game/Init.js, you can set the width and the height of the canvas </p>
+```javascript
+ // Assets/Scripts/Javascript/Game/Config.js line 23
+ var url = 'yourOwnIpAddress:8000';
+ // control.html line 18
+  var url = 'yourOwnIpAddress:8000';
+```
 
-    // Set the canvas size to window size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    
-<h6> Get the context of the canvas </h6>
+After this, open a console, go to the main folder and launch the app.js file using NodeJS.
 
-<p> In Assets/Scripts/Javascript/Game/Config.js, we get the context with this line </p>
+```sh
+$ cd /DirectoryToColorarium
+$ node app.js
+```
 
-    var ctx = canvas.getContext("2d");
-    
-<br />
-<hr>
-<br />    
-    
-<h3 id="loadImages"> Load Images </h3>
+Open a browser and connect to your own Ip adress on the port 8000+/index.html. (192.168.0.15:8000/index.html for example).
 
-<p> In order to load all your images, put them in Assets/Graphics. You now have to call them in Assets/Scripts/Javascript/Game/Config.js under ImagePath. </p>
+You'll arrive on the main screen and where you can choose your character.
 
-    var ImagePath = [{ name:"Boy", path:"Boy.jpg" }];
-    
-<p> We'll see in the <a href="createGameObject"> GameObjects </a> section how to use it. </p>
+Connect your phone on the same network (!!!) and go to your own Ip adress on the port 8000 + /control.html (192.168.0.15:8000/control.html for example).
 
-<br />
-<hr>
-<br />
+You'll arrive on a page with a big 'Calibrate' button
 
-<h3 id="createScene"> Create a Scene </a> </h3>
+Click start on the computer to launch the game.
+When the game is launched, it'll start when you click on 'Calibrate' on your mobile.
 
-<p> A Scene is one of the most important part of the engine since it represents a stage. </p>
-
-<h6> Duplicate the SceneModel </h6>
-
-<p> Go to Assets/Scripts/Javascript/Scenes/SceneModel.js, duplicate all the code in a new file which will be your scene. <br />
-    Rename the function Scene to the name of your choice, change `this.name` to the name of your choice </p>
-    
-<h6> Add the scene on the Loader </h6>
-
-<p> In the Start function add your scene to the array Scenes </p>
-
-    this.Start = function()
-	{
-		if (!this.started)
-		{
-			Scenes["SceneName"] = new SceneName();
-		}
-	}
-    
-<p> Then go to Assets/Scripts/Javascript/Game/Init.js, in ImageLoaded function set the Application.LoadedScene to Scenes["SceneName"] </p>
-    
-    function ImageLoaded(_imageLoaded) 
-    {
-        Application.LoadedScene = Scenes["SceneHub"];
-    }
-
-    
-<br />
-<hr>
-<br />
-    
-<h3 id="createGameObject"> Create a GameObject </a> </h3>
-
-<p> A GameObject represent every element of interaction in your game. A character, a rock, ...</p>
-
-<h6> Duplicate the GameObjects Model </h6>
-
-<p> Go to Assets/Scripts/Javascript/GameObjects/GameObjects.js,  duplicate all the code in a new file which will be your gameObject. <br />
-    Rename the function GameObject to the name of your choice, change `this.name` to the name of your choice</p>
-
-<h6> Add the GameObject to the Scene </h6>
-
-<p> Go to your Scene file and in the Start function, add your GameObject like this </p>
-
-    this.Start = function() 
-	{
-		if (!this.started) 
-		{
-            var gameObject = new NameOfYourGameObject();
-            this.GameObjects.push(gameObject);
-		}
-	}
-
-<p> They'll be automatically started in the Update function of the Scene. </p>
-
-<h6> Handle Inputs </h6>
-
-<p> To act with your GameObject, you can use either your keyboard or the mouse.<br /> 
-    In the Update function of your scene, add this : </p>
-    
-    this.Update = function() 
-	{
-		if (!Application.GamePaused) 
-		{
-			if(Input.KeysDown[32])
-            {
-                this.GameObjects[0].Transform.Position.y -= 10;
-            }
-		}
-	}
-    
-<p> This code will make your GameObject 'jump'. </p>
+Once it's done, the game's launched and you can now move your character by rotating on yourself with your phone in hand.
